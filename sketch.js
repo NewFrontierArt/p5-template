@@ -20,8 +20,10 @@ function draw() {
     ctx.shadowColor = "#fff";
     ctx.shadowBlur = 20;
 
-    let circlesPerRow = nfaRandom(1, 16); // Generates a pseudorandom number between 1 and 16 using the NFT mint address as seed
+    let circlesPerRow = nfaRandom(1, 30); // Generates a pseudorandom number between 1 and 16 using the NFT mint address as seed
 
+  let totalRadius = 0;  
+  
     // Creates a matrix with circles
     for (let i = 0; i < circlesPerRow; i++) {
         for (let j = 0; j < circlesPerRow; j++) {
@@ -32,13 +34,30 @@ function draw() {
           let y = (height / circlesPerRow) * j + height / (circlesPerRow * 2);
 
           // each circle's size is randomized in a range based in the total amount of circles
-          let circleSize = nfaRandom(
-            size / 3 / circlesPerRow,
-            (size * 2) / circlesPerRow
+          let circleRadius = nfaRandom(
+            size / 6 / circlesPerRow,
+            (size * 1) / circlesPerRow
           );
 
-          circle(x, y, circleSize); // draw the circle 
+          totalRadius += circleRadius
+
+          circle(x, y, circleRadius); // draw the circle 
         }
     }
 
+  // Calculate NFT attributes
+  const totalCircles = circlesPerRow * circlesPerRow;
+  const circlesSize = totalRadius / totalCircles > 20 ? "big" : "small";
+  
+  // Tell the NFA system to finish the NFT generation with it's traits
+  nfaFinish([
+    {
+      trait_type: "totalCircles",
+      value: totalCircles.toString(),
+    },
+    {
+      trait_type: "averageSize",
+      value: circlesSize,
+    },
+  ]);
 }

@@ -1,5 +1,8 @@
 //NFA PRNG FUNCTION - DO NOT EDIT
 
+var nfa_finished = false
+var nfa_traits = []
+
 function MersenneTwister(seed) {
   if (seed == null) {
     seed = '123456';
@@ -86,4 +89,32 @@ var generator = new MersenneTwister(mint);
 function nfaRandom(min, max) {
   const randomValue = generator.genrand_int32();
   return (randomValue % (max + 1 - min)) + min;
+}
+
+function nfaFinish(traitArray) {
+  console.log("finishing", traitArray)
+
+  if (Array.isArray(traitArray)) {
+      for (const trait of traitArray) {
+        if (typeof trait == "object") {
+          if (
+            typeof trait["trait_type"] != "string" ||
+            typeof trait["value"] != "string"
+          ) {
+            console.log("not string")
+            return;
+          }
+        } else {
+          console.log('not object array')
+          return;
+        }
+      };
+
+      console.log("traits set");
+      nfa_traits = traitArray;
+  } else {
+    console.log("not array")
+  }
+  
+ nfa_finished = true
 }
