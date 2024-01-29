@@ -1,6 +1,6 @@
 # NFA p5.js generative code template
 
-This repository contains a simple example of a generative code that can be published to [newfrontier.art](newfrontier.art) to create a new art collection.
+This repository contains a simple example of a generative code that can be published to [newfrontier.art](https://www.newfrontier.art) to create a new art collection.
 
 ## Project Structure
 
