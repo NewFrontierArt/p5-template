@@ -92,6 +92,11 @@ function nfaRandom(min, max) {
   return (randomValue % (max + 1 - min)) + min;
 }
 
+function nfaRandomFloat() {
+  const randomInt = generator.genrand_int32();
+  return randomInt / 0xFFFFFFFF;
+}
+
 function nfaFinish(traitArray) {
   console.log("finishing", traitArray)
 
